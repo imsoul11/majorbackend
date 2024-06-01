@@ -36,4 +36,14 @@ app.use(cookieparser())
 // if the next is not called the request will be stuck at the middleware
 // if the next is called the request will be passed to the next middleware
 
+
+
+
+// routes import
+import userRouter from './routes/user.routes.js'
+
+// routes declaration 
+app.use('/api/v1/users',userRouter)
+// http://localhost:8000/api/v1/users
+// check you have to http or https in the url
 export { app }
