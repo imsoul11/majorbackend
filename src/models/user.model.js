@@ -41,7 +41,7 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Password is required'],
     },
-    refereshToken: {
+    refreshToken: {
         type: String,
     },
 }
@@ -54,18 +54,14 @@ const userSchema = new Schema({
 // alsocheck if password is modified or not
 // it is a middleware that is provided by mongoose
 
-userSchema.pre('save', async function(next) {
-    if(!this.isModified('password') === false) return next()
-    try {
-        // const salt = await bcrypt.genSalt(10);
-        this.password = await bcrypt.hash(this.password, 10);
-        next();
-    } catch (error) {
-        next(error);
-    }
-});
+userSchema.pre("save", async function (next) {
+    if(!this.isModified("password")) return next();
+    this.password = await bcrypt.hash(this.password, 10)
+    next()
+})
 
 userSchema.methods.isPasswordCorrect = async function(password) {
+    console.log("am i being called",password, this.password)
     return await bcrypt.compare(password, this.password);
 }
 
