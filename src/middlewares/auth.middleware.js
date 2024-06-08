@@ -18,3 +18,6 @@ export const verifyjwt = asyncHandler(async (req, res, next) => {
         throw new apiError(401, "Unauthorized")
     }
 })
+
+// this is to check if the user is logged in or not
+// if the user is logged in then we will have the user in the req.user
