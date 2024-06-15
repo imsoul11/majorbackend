@@ -9,13 +9,13 @@ const userSchema = new Schema({
         unique: true,
         lowercase: true,
         trim: true,
-        index: true,
+        index: true, // This helps in searching
     },
     email: {
         type: String,
         required: true,
-        unique: true,
-        lowercase: true,
+        unique: true, // So that no two users can have same email
+        lowercase: true, // so that we dont have to check for case sensitivity          // it will convert all email to lowercase 
         trim: true,
     },
     fullName: {
@@ -155,5 +155,6 @@ Access tokens have a limited lifespan to mitigate security risks.
 Refresh tokens can be used to obtain new access tokens when the current one expires.
 Robust token management strategies are crucial for ensuring secure and efficient authentication.
 */
+
 
 

@@ -13,14 +13,24 @@ const router = Router();
 // },registerUser)
 
 
-router.route('/register').post(upload.fields([
+router.route('/register').post((req,res,next)=>{
+    console.log('hello i am midddle')
+    console.log('checking for req.files',req.files)
+    console.log('checking for req.body',req.body)
+    next()
+},upload.fields([
     {
         name:'avatar',maxCount:1
     },
     {
         name:'coverImage',maxCount:1
     }
-]),registerUser)
+]),
+(req,res,next)=>{
+    console.log('hello i am midddle')
+    console.log('checking for req.files again',req.files,'i got i think')
+    next()
+},registerUser)
 
 // the field which we are uploading will be stored in the req.files for the registerUser function to check it
 //http://localhost:8000/api/v1/users/register

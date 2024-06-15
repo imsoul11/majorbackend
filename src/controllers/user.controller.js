@@ -54,7 +54,7 @@ const registerUser = asyncHandler(async (req, res) => {
     // this body contains al the data that is sent by the frontend
     // but it does not contain the files
     // so the middleware multer which we added in the route will give the access to file by req.files
-
+    console.log('what i am getting ',req.files)
     const avatarLocalPath = req.files?.avatar[0]?.path
     // const coverImageLocalPath=req.files?.coverImage[0]?.path
     let coverImageLocalPath;
@@ -151,6 +151,7 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
     }
     try {
         const decodedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET)
+        // in this decode token you  get the payload which you stored in form the encryption
         const user = await User.findById(decodedToken._id)
         if (!user) {
             throw new apiError(401, "Unauthorized")
@@ -222,6 +223,7 @@ const updateUserAvatar = asyncHandler(async (req, res) => {
     }
     const user = await User.findByIdAndUpdate(req.user?._id, { avatar: avatar.url }, { new: true }).select("-password")
     return res.status(200).json(new apiResponse(200, user, "Avatar updated successfully"))
+    // you are adding select so that you can select that filed whihc do you not want to send to the fronedn
 })
 const updateUserCoverImage = asyncHandler(async (req, res) => {
     const coverImageLocalPath = req.file?.path
@@ -237,6 +239,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 })
 const getUserChannelProfile = asyncHandler(async (req, res) => {
     const { username } = req.params
+    // we will take the usenrame from the url 
     if (!username?.trim()) {
         throw new apiError(400, "Username is required")
     }
