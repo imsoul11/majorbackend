@@ -412,12 +412,16 @@ const getVideoById = asyncHandler(async (req, res) => {
     if (!videoId) {
         throw new apiError(400, 'sent the videoId')
     }
-    const video = await Video.findById(videoId)
+    const video = await Video.findByIdAndUpdate(videoId,{
+        $inc:{
+            views:1
+        }
+    },{new:true})
     if (!video) {
         throw new apiError(400, "cant fetch the video")
     }
     console.log(video)
-    return res.status(200).json(new apiResponse(200, video.videoFile, "succesfully got the video"))
+    return res.status(200).json(new apiResponse(200, video, "succesfully got the video"))
 })
 
 const updateVideo = asyncHandler(async (req, res) => {

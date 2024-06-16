@@ -14,7 +14,7 @@ const playlistSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: "Video",
     }],
-    discription: {
+    description: {
         type: String,
         required: true,
     }
